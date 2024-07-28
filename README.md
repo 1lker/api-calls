@@ -8,6 +8,8 @@ Bu doküman, her API endpoint'i için güncellenmiş örnek yanıtları içermek
 
 **Açıklama:** Bu API, belirli bir şube için özet bilgileri döndürür.
 
+
+
 **Örnek Yanıt:**
 ```json
 {
@@ -47,6 +49,54 @@ Bu doküman, her API endpoint'i için güncellenmiş örnek yanıtları içermek
   "basari_durumu": {
     "yuzde": 87,
     "mesaj": "Eksik olduğunuz yayınları inceleyerek başarınızı arttırabilirsiniz."
+  },
+  "tarih": "01.07.2024"
+}
+```
+
+**Dipnot:** 
+Bu örnekte, `basari_durumu.mesaj` alanı artık zengin içerik (rich content) formatında sunulmaktadır. Bu format, istemci uygulamasının mesajı daha zengin ve etkileşimli bir şekilde göstermesine olanak tanır. İçerik, başlıklar, paragraflar, listeler ve hatta butonlar gibi farklı elementler içerebilir. İstemci uygulaması, bu yapıyı kullanarak kullanıcı arayüzünde daha görsel ve etkileşimli bir deneyim sunabilir.
+
+Zengin içerik formatı, uygulamanın farklı platformlarda (web, mobil, tablet vb.) tutarlı bir görünüm sağlamasına yardımcı olur ve gelecekte yeni içerik türleri eklemeyi kolaylaştırır. Ayrıca, bu yapı sayesinde sunucu tarafında mesaj içeriğini dinamik olarak oluşturmak ve kişiselleştirmek mümkün hale gelir.
+
+**Örnek Yanıt:**
+```json
+{
+  .....
+  },
+  "basari_durumu": {
+    "yuzde": 87,
+    "mesaj": {
+      "type": "rich_content",
+      "content": [
+        {
+          "type": "header",
+          "text": "Tebrikler! Başarı Oranınız %87",
+          "style": "h2",
+          "color": "#4CAF50"
+        },
+        {
+          "type": "paragraph",
+          "text": "Hedefinize yaklaşmak üzeresiniz. İşte size önerilerimiz:",
+          "style": "normal"
+        },
+        {
+          "type": "list",
+          "style": "unordered",
+          "items": [
+            "Eksik olduğunuz yayınları inceleyerek başarınızı arttırabilirsiniz.",
+            "Özellikle ortaokul kategorisinde hedeflerinizi gözden geçirin.",
+            "En çok satan ürünlerinize odaklanarak satışlarınızı artırın."
+          ]
+        },
+        {
+          "type": "button",
+          "text": "Detaylı Raporu Görüntüle",
+          "url": "/detailed-report",
+          "style": "primary"
+        }
+      ]
+    }
   },
   "tarih": "01.07.2024"
 }
