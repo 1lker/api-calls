@@ -1,0 +1,165 @@
+sequenceDiagram
+    participant Client
+    participant API
+    participant Database
+
+    Note over Client,API: 1. publisher-performance-api
+    Client->>API: GET /api/publisher-performance?branch_id=123
+    API->>Database: Query all publisher data for branch_id 123
+    Database-->>API: Return complete publisher performance data
+    API-->>Client: JSON response with all publisher data
+    Note over Client,API: Example Response:
+    Note over Client,API: {
+    Note over Client,API:   "publishers": [
+    Note over Client,API:     {
+    Note over Client,API:       "name": "Acil Yayınları",
+    Note over Client,API:       "target": 3789456,
+    Note over Client,API:       "achieved": 1789456,
+    Note over Client,API:       "percentage": 47.22
+    Note over Client,API:     },
+    Note over Client,API:     {
+    Note over Client,API:       "name": "Apotemi Yayınları",
+    Note over Client,API:       "target": 3789456,
+    Note over Client,API:       "achieved": 2789456,
+    Note over Client,API:       "percentage": 73.61
+    Note over Client,API:     }
+    Note over Client,API:   ]
+    Note over Client,API: }
+
+    Note over Client,API: 2. product-category-performance-api
+    Client->>API: GET /api/product-category-performance?branch_id=123&level=lise
+    API->>Database: Query all category data for branch_id 123 and level 'lise'
+    Database-->>API: Return complete category performance data
+    API-->>Client: JSON response with all category data
+    Note over Client,API: Example Response:
+    Note over Client,API: {
+    Note over Client,API:   "categories": [
+    Note over Client,API:     {
+    Note over Client,API:       "name": "Soru Bankası",
+    Note over Client,API:       "target": 10987,
+    Note over Client,API:       "achieved": 8452,
+    Note over Client,API:       "percentage": 76.93
+    Note over Client,API:     },
+    Note over Client,API:     {
+    Note over Client,API:       "name": "Fasikül/Defter",
+    Note over Client,API:       "target": 10987,
+    Note over Client,API:       "achieved": 7654,
+    Note over Client,API:       "percentage": 69.66
+    Note over Client,API:     }
+    Note over Client,API:   ]
+    Note over Client,API: }
+
+    Note over Client,API: 3. product-detail-breakdown-api
+    Client->>API: GET /api/product-detail-breakdown?branch_id=123&category=soru_bankasi
+    API->>Database: Query all product details for branch_id 123 and category 'soru_bankasi'
+    Database-->>API: Return complete product detail data
+    API-->>Client: JSON response with all product details
+    Note over Client,API: Example Response:
+    Note over Client,API: {
+    Note over Client,API:   "products": [
+    Note over Client,API:     {
+    Note over Client,API:       "name": "TYT Matematik Soru Bankası",
+    Note over Client,API:       "class": "TYT",
+    Note over Client,API:       "subject": "Matematik",
+    Note over Client,API:       "quantity": 120987
+    Note over Client,API:     },
+    Note over Client,API:     {
+    Note over Client,API:       "name": "AYT Fizik Soru Bankası",
+    Note over Client,API:       "class": "AYT",
+    Note over Client,API:       "subject": "Fizik",
+    Note over Client,API:       "quantity": 98765
+    Note over Client,API:     }
+    Note over Client,API:   ]
+    Note over Client,API: }
+
+    Note over Client,API: 4. branch_summary_api
+    Client->>API: GET /api/branch-summary?branch_id=123
+    API->>Database: Query summary data for branch_id 123
+    Database-->>API: Return branch summary data
+    API-->>Client: JSON response with branch summary
+    Note over Client,API: Example Response:
+    Note over Client,API: {
+    Note over Client,API:   "total_target": 345567,
+    Note over Client,API:   "total_achieved": 245567,
+    Note over Client,API:   "overall_percentage": 71.06,
+    Note over Client,API:   "total_revenue": 3789093.12
+    Note over Client,API: }
+
+    Note over Client,API: 5. top-bottom-books-api
+    Client->>API: GET /api/top-bottom-books?branch_id=123&limit=2
+    API->>Database: Query top and bottom books for branch_id 123
+    Database-->>API: Return top and bottom books data
+    API-->>Client: JSON response with top and bottom books
+    Note over Client,API: Example Response:
+    Note over Client,API: {
+    Note over Client,API:   "top_books": [
+    Note over Client,API:     {
+    Note over Client,API:       "name": "TYT Matematik Soru Bankası",
+    Note over Client,API:       "quantity": 130923
+    Note over Client,API:     },
+    Note over Client,API:     {
+    Note over Client,API:       "name": "AYT Fizik Soru Bankası",
+    Note over Client,API:       "quantity": 100923
+    Note over Client,API:     }
+    Note over Client,API:   ],
+    Note over Client,API:   "bottom_books": [
+    Note over Client,API:     {
+    Note over Client,API:       "name": "11. Sınıf Kimya Fasikülü",
+    Note over Client,API:       "quantity": 34
+    Note over Client,API:     },
+    Note over Client,API:     {
+    Note over Client,API:       "name": "9. Sınıf Biyoloji Defteri",
+    Note over Client,API:       "quantity": 190
+    Note over Client,API:     }
+    Note over Client,API:   ]
+    Note over Client,API: }
+
+    Note over Client,API: 6. all-publisher-chart-api
+    Client->>API: GET /api/all-publisher-chart?branch_id=123
+    API->>Database: Query chart data for all publishers in branch_id 123
+    Database-->>API: Return publisher chart data
+    API-->>Client: JSON response with publisher chart data
+    Note over Client,API: Example Response:
+    Note over Client,API: {
+    Note over Client,API:   "publishers": [
+    Note over Client,API:     {
+    Note over Client,API:       "name": "Acil Yayınları",
+    Note over Client,API:       "sales": 87654
+    Note over Client,API:     },
+    Note over Client,API:     {
+    Note over Client,API:       "name": "Apotemi Yayınları",
+    Note over Client,API:       "sales": 76543
+    Note over Client,API:     },
+    Note over Client,API:     {
+    Note over Client,API:       "name": "Bilgi Sarmal Yayınları",
+    Note over Client,API:       "sales": 65432
+    Note over Client,API:     }
+    Note over Client,API:   ]
+    Note over Client,API: }
+
+    Note over Client,API: 7. publisher_distribution_api
+    Client->>API: GET /api/publisher-distribution?branch_id=123
+    API->>Database: Query publisher distribution data for branch_id 123
+    Database-->>API: Return publisher distribution data
+    API-->>Client: JSON response with publisher distribution data
+    Note over Client,API: Example Response:
+    Note over Client,API: {
+    Note over Client,API:   "distribution": [
+    Note over Client,API:     {
+    Note over Client,API:       "name": "Acil Yayınları",
+    Note over Client,API:       "percentage": 35
+    Note over Client,API:     },
+    Note over Client,API:     {
+    Note over Client,API:       "name": "Apotemi Yayınları",
+    Note over Client,API:       "percentage": 30
+    Note over Client,API:     },
+    Note over Client,API:     {
+    Note over Client,API:       "name": "Bilgi Sarmal Yayınları",
+    Note over Client,API:       "percentage": 20
+    Note over Client,API:     },
+    Note over Client,API:     {
+    Note over Client,API:       "name": "Diğer",
+    Note over Client,API:       "percentage": 15
+    Note over Client,API:     }
+    Note over Client,API:   ]
+    Note over Client,API: }
