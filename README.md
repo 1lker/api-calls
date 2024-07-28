@@ -371,3 +371,198 @@ Zengin içerik formatı, uygulamanın farklı platformlarda (web, mobil, tablet 
 ```
 
 Not: Tüm API çağrılarında `branch_id` parametresi zorunludur ve ilgili şubenin verilerini filtrelemek için kullanılır.
+
+
+# Complete Branch API Documentation
+
+## complete-branch-api
+
+**Endpoint:** `GET /api/complete-branch?branch_id=123`
+
+**Açıklama:** Bu API, belirli bir şube için tüm verileri tek bir çağrıda döndürür. Bu, diğer tüm API'lerin verilerini birleştirir.
+
+**TypeScript Type:**
+```typescript
+type CompleteBranchData = {
+  summary: BranchSummary;
+  topBottomBooks: TopBottomBooks;
+  publisherChart: PublisherChartData;
+  publisherDistribution: PublisherDistribution;
+  publisherPerformance: PublisherPerformance;
+  productCategoryPerformance: ProductCategoryPerformance;
+};
+```
+
+**Örnek Yanıt:**
+```json
+{
+  "summary": {
+    "genel": {
+      "toplam_hedef": {
+        "adet": 345567.00,
+        "tutar": 345567.00
+      },
+      "gerceklesen_hedef": {
+        "adet": 245567.00,
+        "tutar": 245567.00
+      },
+      "gerceklesme_orani": 87
+    },
+    "lise": {
+      "toplam_hedef": {
+        "adet": 345567.00,
+        "tutar": 345567.00
+      },
+      "gerceklesen_hedef": {
+        "adet": 245567.00,
+        "tutar": 245567.00
+      },
+      "gerceklesme_orani": 87
+    },
+    "ortaokul": {
+      "toplam_hedef": {
+        "adet": 345567.00,
+        "tutar": 345567.00
+      },
+      "gerceklesen_hedef": {
+        "adet": 245567.00,
+        "tutar": 245567.00
+      },
+      "gerceklesme_orani": 87
+    },
+    "basari_durumu": {
+      "yuzde": 87,
+      "mesaj": {
+        "type": "rich_content",
+        "content": [
+          {
+            "type": "header",
+            "text": "Tebrikler! Başarı Oranınız %87",
+            "style": "h2",
+            "color": "#4CAF50"
+          },
+          {
+            "type": "paragraph",
+            "text": "Hedefinize yaklaşmak üzeresiniz. İşte size önerilerimiz:",
+            "style": "normal"
+          },
+          {
+            "type": "list",
+            "style": "unordered",
+            "items": [
+              "Eksik olduğunuz yayınları inceleyerek başarınızı arttırabilirsiniz.",
+              "Özellikle ortaokul kategorisinde hedeflerinizi gözden geçirin.",
+              "En çok satan ürünlerinize odaklanarak satışlarınızı artırın."
+            ]
+          },
+          {
+            "type": "button",
+            "text": "Detaylı Raporu Görüntüle",
+            "url": "/detailed-report",
+            "style": "primary"
+          }
+        ]
+      }
+    },
+    "tarih": "01.07.2024"
+  },
+  "topBottomBooks": {
+    "top_books": [
+      {
+        "name": "TYT Matematik Soru Bankası",
+        "quantity": 130923
+      },
+      {
+        "name": "AYT Fizik Soru Bankası",
+        "quantity": 100923
+      }
+    ],
+    "bottom_books": [
+      {
+        "name": "11. Sınıf Almanca Çalışma Kitabı",
+        "quantity": 34
+      },
+      {
+        "name": "9. Sınıf Biyoloji Defteri",
+        "quantity": 190
+      }
+    ]
+  },
+  "publisherChart": {
+    "publishers": [
+      {
+        "name": "Acil Yayınları",
+        "sales": 87654
+      },
+      {
+        "name": "Apotemi Yayınları",
+        "sales": 76543
+      }
+    ]
+  },
+  "publisherDistribution": {
+    "distribution": [
+      {
+        "name": "Acil Yayınları",
+        "percentage": 35
+      },
+      {
+        "name": "Apotemi Yayınları",
+        "percentage": 30
+      }
+    ]
+  },
+  "publisherPerformance": {
+    "publishers": [
+      {
+        "name": "Acil Yayınları",
+        "target": 3789456,
+        "achieved": 1789456,
+        "percentage": 47.22
+      },
+      {
+        "name": "Apotemi Yayınları",
+        "target": 3789456,
+        "achieved": 2789456,
+        "percentage": 73.61
+      }
+    ]
+  },
+  "productCategoryPerformance": {
+    "lise": {
+      "categories": [
+        {
+          "name": "Soru Bankası",
+          "target": 10987,
+          "achieved": 8452,
+          "percentage": 76.93
+        },
+        {
+          "name": "Fasikül/Defter",
+          "target": 10987,
+          "achieved": 7654,
+          "percentage": 69.66
+        }
+      ]
+    },
+    "ortaokul": {
+      "categories": [
+        {
+          "name": "Soru Bankası",
+          "target": 9876,
+          "achieved": 7654,
+          "percentage": 77.50
+        },
+        {
+          "name": "Fasikül/Defter",
+          "target": 9876,
+          "achieved": 8765,
+          "percentage": 88.75
+        }
+      ]
+    }
+  }
+}
+```
+
+**Not:** Bu API, diğer tüm API'lerin verilerini tek bir çağrıda döndürür. Bu, ağ trafiğini azaltabilir ve uygulama performansını artırabilir, ancak büyük miktarda veri döndürdüğü için yüklenme süresi uzayabilir. Kullanım senaryonuza bağlı olarak, bu API'yi veya ayrı API'leri kullanmayı tercih edebilirsiniz.
